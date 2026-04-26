@@ -476,12 +476,18 @@ export default class NestmtxStream extends BaseCommand {
       'anullsrc=r=48000:cl=stereo', // Synthetic audio source
       // Hardware-accelerated encoding arguments (no conflict now)
       ...this.#hardwareAcceleratedEncodingArguments,
+      '-c:v',
+      'libx264',
+      '-preset',
+      'ultrafast', // Ultrafast preset for low CPU on static placeholder
       '-profile:v',
-      'main',
+      'baseline', // baseline required with ultrafast preset
       '-tune',
       'zerolatency',
       '-r',
-      '25',
+      '2', // 2fps is sufficient for a static placeholder image
+      '-b:v',
+      '100k', // Cap bitrate — static frame needs very little
       '-s',
       size,
       '-pix_fmt',
