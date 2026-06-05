@@ -357,12 +357,10 @@ export default class NestmtxStream extends BaseCommand {
 
       // Output Format
       '-f',
-      'mpegts', // Set the format to MPEG-TS
-      '-use_wallclock_as_timestamps',
-      '1',
+      'mpegts',
 
       // Destination (SRT or other media server)
-      `"${this.#destination}"`, // Destination path (quoted)
+      `"${this.#destination}"`,
     ]
 
     this.#streamer = execa(ffmpegBinary, ffmpegArgs, {
