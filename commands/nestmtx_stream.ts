@@ -331,9 +331,29 @@ export default class NestmtxStream extends BaseCommand {
       '-i',
       `pipe:3`,
 
-      // Pass through video without re-encoding
+      // Normalize to constant 15fps, filling CDN gaps with last frame
+      '-vf',
+      'fps=15',
+
+      // Re-encode to H.264 baseline (no B-frames) for maximum decoder compatibility
       '-c:v',
-      'copy',
+      'libx264',
+      '-preset',
+      'veryfast',
+      '-profile:v',
+      'baseline',
+      '-level:v',
+      '4.1',
+      '-tune',
+      'zerolatency',
+      '-g',
+      '15', // Keyframe every 1s at 15fps
+      '-b:v',
+      '2M',
+      '-maxrate',
+      '2M',
+      '-bufsize',
+      '4M',
 
       // AAC Audio Stream (track 1)
       '-c:a:0',
