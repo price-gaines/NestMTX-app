@@ -621,8 +621,11 @@ export default class NestmtxStream extends BaseCommand {
       // Hardware-accelerated decoding arguments
       ...this.#hardwareAcceleratedDecodingArguments,
 
+      // Rate-limit reading to the stream's own timestamps, absorbing CDN burst delivery
+      '-re',
+
       '-i',
-      `"${rtspSrc}"`, // Input RTSP stream with quotes
+      `"${rtspSrc}"`,
 
       // Retry options for network issues
       '-rtsp_transport',
